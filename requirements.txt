@@ -1,0 +1,11 @@
+django==4.1
+uritemplate==4.1.1
+PyYAML==6.0
+Markdown==3.4.1
+Pygments==2.13.0
+django-filter==22.1
+django-guardian==v2.4.0
+djangorestframework==3.12.4
+mysqlclient==2.1.1
+django_microsoft_auth==2.4.1
+
