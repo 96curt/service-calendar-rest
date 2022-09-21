@@ -3,15 +3,20 @@ version: '3'
 networks:
   backend:
     external: true
-    
+
+
 services:
   web:
+    user: 1000:1000
     build: .
     command: python manage.py runserver 0.0.0.0:8888
     depends_on:
       - db
     volumes:
       - .:/code
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "8888:8888"
     networks:
@@ -19,10 +24,15 @@ services:
   
   db:
     image: mariadb
+    user: mysql:mysql
     environment:
       MYSQL_ROOT_PASSWORD: docker
       MYSQL_DATABASE: docker
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
+    volumes:
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - backend
