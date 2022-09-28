@@ -3,8 +3,6 @@ import LocationBase
 import uuid
 
 class Customer(LocationBase):
-    # Customer Number
-    customerId = models.AutoField(primary_key=True, editable=False)
     # Billing Number
     billingNumber = models.IntegerFields()
     # Contact First Name

@@ -1,20 +1,15 @@
 from django.db import models
-from api.models.fields.Regions import RegionField
-from api.models.fields.ServiceCenter import ServiceCenterField
-
+from api.models.fields import Fields
+from api.models.service.ServiceCenter import ServiceCenter
 class OrderHeader(models.Model):
     # Region Number
-    regionKey = RegionField()
+    regionKey = Fields.RegionField()
     # Sequence Number
-    sequenceKey = models.IntegerField()
+    sequenceKey = models.DecimalField(max_digits=6)
     # Addendum Number
-    addendumKey = models.IntegerField()
-    # Current Region
-    curRegion = RegionField()
-    # Current Terr Mgr
-    curTerritoryManager = models.CharField(max_length=3)
+    addendumKey = models.DecimalField(max_digits=3)
     # Remote Svc Office
-    remoteServiceCenter = ServiceCenterField()
+    serviceCenter = models.ForeignKey(ServiceCenter)
     # Gate Code
     gateCode = models.CharField(max_length=15)
     # Open Site Y/N

@@ -1,13 +1,9 @@
 from django.db import models
-import api.models.fields.Regions as Regions, api.models.fields.ServiceCenter as ServiceCenter
+from api.models.service.ServiceCenter import ServiceCenter
 
 class Technician(models.Model):
-    # technician Indentifer
-    techId = models.AutoField(primary_key=True, editable=False)
-    # Primary Region
-    primaryRegion = Regions.RegionField()
     # Primary Service Center
-    primaryCenter = ServiceCenter.ServiceCenterField()
+    primaryCenter = models.ForeignKey(ServiceCenter)
     # Tech Qualifier
     qualifier = models.CharField(max_length=1)
     # Tech Type E/V
