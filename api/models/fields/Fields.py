@@ -52,3 +52,37 @@ class TerritoryManagerField(CharField):
         name, path, args, kwargs = super().deconstruct()
         del kwargs['choices']
         return name, path, args, kwargs
+
+class ServiceCodeField(CharField):
+    """
+    A model field that stores the two-digit service codes in the database.
+    """
+
+    description = _("Service Center (two digits)")
+
+    def __init__(self, *args, **kwargs):
+        kwargs['choices'] = choices.SERVICE_CODES
+        kwargs['max_length'] = 2
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        del kwargs['choices']
+        return name, path, args, kwargs
+
+class WarrantyCodeField(CharField):
+    """
+    A model field that stores the two-digit Warranty code in the database.
+    """
+
+    description = _("Service Center (two digits)")
+
+    def __init__(self, *args, **kwargs):
+        kwargs['choices'] = choices.WARRANTY_CODES
+        kwargs['max_length'] = 2
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        del kwargs['choices']
+        return name, path, args, kwargs

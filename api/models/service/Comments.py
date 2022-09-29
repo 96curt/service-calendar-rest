@@ -7,12 +7,8 @@ from api.models.service.OrderHeader import OrderHeader
 class Comments(models.Model):
     #Service Order id
     serviceOrder = models.ForeignKey(OrderHeader) 
-    # Sequence Number Two
-    sequenceNumberTwo = models.DecimalField(max_digits=3)
-    # Key Date *Optional
-    keyDate = models.DateField(null=True)
     # Comment Type
-    commentType = models.CharField(max_length=1)
+    commentType = models.CharField(max_length=2)
     # Last Update By Id
     lastUpdateBy = models.ForeignKey(User)
     # Last Update Date
