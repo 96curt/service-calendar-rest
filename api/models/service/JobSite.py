@@ -1,9 +1,9 @@
 from django.db import models
 
-from api.models.LocationBase import LocationBase
+from api.models.abstract.AbstractLocation import AbstractLocation
 from api.models.Customers import Customer
 from api.models.fields.Fields import RegionField
-class JobSite(LocationBase):
+class JobSite(AbstractLocation):
     region = RegionField()
-    customer = models.ForeignKey(Customer)
+    owner = models.ForeignKey(Customer,on_delete=models.CASCADE)
     

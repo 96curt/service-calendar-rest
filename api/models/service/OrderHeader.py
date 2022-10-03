@@ -5,11 +5,11 @@ class OrderHeader(models.Model):
     # Region Number
     regionKey = Fields.RegionField()
     # Sequence Number
-    sequenceKey = models.DecimalField(max_digits=6)
+    sequenceKey = models.DecimalField(max_digits=6,decimal_places=0)
     # Addendum Number
-    addendumKey = models.DecimalField(max_digits=3)
+    addendumKey = models.DecimalField(max_digits=3,decimal_places=0)
     # Remote Svc Office
-    serviceCenter = models.ForeignKey(ServiceCenter)
+    serviceCenter = models.ForeignKey(ServiceCenter, on_delete=models.CASCADE)
     # Gate Code
     gateCode = models.CharField(max_length=15)
     # Open Site Y/N

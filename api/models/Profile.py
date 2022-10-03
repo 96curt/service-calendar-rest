@@ -5,5 +5,5 @@ from api.models.service.ServiceCenter import ServiceCenter
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     region = RegionField()
-    serviceCenter = models.ForeignKey(ServiceCenter)
+    serviceCenter = models.ForeignKey(ServiceCenter, on_delete=models.SET_NULL,null=True)
     

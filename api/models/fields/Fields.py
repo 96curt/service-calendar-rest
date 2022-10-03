@@ -75,11 +75,11 @@ class WarrantyCodeField(CharField):
     A model field that stores the two-digit Warranty code in the database.
     """
 
-    description = _("Service Center (two digits)")
+    description = _("Warrenty Code (1 digit)")
 
     def __init__(self, *args, **kwargs):
         kwargs['choices'] = choices.WARRANTY_CODES
-        kwargs['max_length'] = 2
+        kwargs['max_length'] = 1
         super().__init__(*args, **kwargs)
 
     def deconstruct(self):

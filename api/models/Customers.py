@@ -1,10 +1,9 @@
 from django.db import models
-import LocationBase
-import uuid
+from api.models.abstract.AbstractLocation import AbstractLocation
 
-class Customer(LocationBase):
+class Customer(AbstractLocation):
     # Billing Number
-    billingNumber = models.IntegerFields()
+    billingNumber = models.DecimalField(max_digits=3,decimal_places=0)
     # Contact First Name
     firstName = models.CharField(max_length=128)
     # Contact Last Name
