@@ -108,3 +108,5 @@ SERVICE_CODES = (
     ('56', _('Delayed Shipment')),
     ('99', _('Claim')),
 )
+
+#Comment Type
