@@ -110,3 +110,4 @@ SERVICE_CODES = (
 )
 
 #Comment Type
+#service Status

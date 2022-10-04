@@ -31,6 +31,7 @@ class ServiceCenterField(CharField):
         kwargs['max_length'] = 2
         super().__init__(*args, **kwargs)
 
+
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
         del kwargs['choices']

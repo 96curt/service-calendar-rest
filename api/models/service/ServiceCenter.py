@@ -8,6 +8,7 @@ class ServiceCenter(AbstractLocation):
     region = Fields.RegionField()
     manager = Fields.TerritoryManagerField()
 
-
+    def __str__(self):
+        return self.name
 
     
