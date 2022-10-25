@@ -1,6 +1,10 @@
+from datetime import datetime, time
 from email.policy import default
+from unittest.util import _MAX_LENGTH
 from django.db import models
+
 from api.models.service.ServiceCenter import ServiceCenter
+from api.models.WorkWeek import WorkWeek, get_sentinel_workWeek
 
 class Technician(models.Model):
     # Primary Service Center
@@ -13,10 +17,16 @@ class Technician(models.Model):
     firstName = models.CharField(max_length=128)
     # Tech Last Name
     lastName = models.CharField(max_length=128, default="")
-    # Tech Work Days (7 lsb for days of week)            (M T W TH F S S)
-    workDays = models.SmallIntegerField(default=0x7C)   #(1 1 1  1 1 0 0) -> 0x7C
+    # Tech Work Days 
+    workWeek = models.OneToOneField(WorkWeek,on_delete=models.SET_NULL,null=True)
     # active
     active = models.BooleanField(default=True)
+    #lunch time
+    #lunchTime = models.TimeField(
+    #    default = time(hour=12)
+    #)
 
     def __str__(self):
-        return self.alias
+        return self.firstName + ' ' + self.lastName
+
+    

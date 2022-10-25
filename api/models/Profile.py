@@ -7,3 +7,5 @@ class Profile(models.Model):
     region = RegionField()
     serviceCenter = models.ForeignKey(ServiceCenter, on_delete=models.SET_NULL,null=True)
     
+    def __str__(self) -> str:
+        return self.user.__str__()

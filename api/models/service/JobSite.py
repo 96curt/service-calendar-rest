@@ -7,3 +7,5 @@ class JobSite(AbstractLocation):
     region = RegionField()
     owner = models.ForeignKey(Customer,on_delete=models.CASCADE)
     
+    def __str__(self):
+        return self.street + ' ' +self.street2 + ', ' + self.city + ', ' + self.state    

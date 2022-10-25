@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models.service import Comment, JobSite, OrderHeader, OrderItem, Schedule, ServiceCenter, Technician
+from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
 from api.models import Customer, Profile
 
 
@@ -20,16 +20,21 @@ class JobSiteSerializer(serializers.ModelSerializer):
         model = JobSite.JobSite
         fields = '__all__'
 
-
-class OrderHeaderSerializer(serializers.ModelSerializer):
+class OrderSequenceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderHeader.OrderHeader
+        model = Order.OrderSequence
+        fields = '__all__'
+
+
+class OrderAddendumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order.OrderAddendum
         fields = '__all__'
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderItem.OrderItem
+        model = Order.OrderItem
         fields = '__all__'
 
 

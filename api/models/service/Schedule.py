@@ -1,8 +1,11 @@
+from datetime import timedelta
 from django.db import models
+from api.models.service.Order import OrderAddendum
 from api.models.service.ServiceCenter import ServiceCenter
-from api.models.service.OrderHeader import OrderHeader
 from api.models.service.Technician import Technician
+from api.models.WorkWeek import WorkWeek
 from api import helper
+from django.utils import timezone
 from django.conf import settings
 
 # Service Order Schedule Model
@@ -10,7 +13,12 @@ from django.conf import settings
 
 class Schedule(models.Model):
     # Service Order id
-    order = models.ForeignKey(OrderHeader, on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        OrderAddendum,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
     # Service Center
     serviceCenter = models.ForeignKey(
         ServiceCenter,
@@ -22,8 +30,7 @@ class Schedule(models.Model):
         on_delete=models.SET(helper.get_sentinel_user),
         related_name='scheduledBy',
     )
-    # When the schedule 
-    scheduledDate = models.DateField()
+    
     # Has the schedule been confirmed with customer.
     confirmed = models.BooleanField(default=False)
     # Who confirmed with the customer
@@ -31,15 +38,26 @@ class Schedule(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.SET(helper.get_sentinel_user),
         related_name='confirmedBy',
+        blank=True,
+        null=True
     )
     
     description = models.CharField(max_length=1024, null=True)
-    technician = models.ForeignKey(
-        Technician,
-        on_delete=models.SET(helper.get_sentinel_tech),
+    # multiple technicians can be scheduled to an appointment
+    technicians = models.ManyToManyField(
+        Technician
+    )
+
+    date = models.DateField(
+        default=timezone.now
+    )
+    startTime = models.TimeField(
+        default=timezone.now
+    )
+    endTime = models.TimeField(
+        default=timezone.now
     )
     travelHours = models.DecimalField(max_digits=6, decimal_places=2)
-    arrivalTime = models.DecimalField(max_digits=4, decimal_places=0)
-    onSiteHours = models.DecimalField(max_digits=6, decimal_places=2)
-    returnHours = models.DecimalField(max_digits=6, decimal_places=2)
-    lunchTime = models.DecimalField(max_digits=4, decimal_places=0)
+
+    def __str__(self) -> str:
+        return self.date.strftime('%m/%d/%Y') + ' ' +  self.startTime.strftime('%H:%M') 

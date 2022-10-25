@@ -109,5 +109,26 @@ SERVICE_CODES = (
     ('99', _('Claim')),
 )
 
-#Comment Type
-#service Status
+# Comment Type
+COMMENT_TYPE = (
+    ('Q', _('Quote')),
+    ('E', _('External')),
+    ('P', _('Plant')),
+    ('T', _('Technition')),
+    ('S', _('Schedule')),
+    ('O', _('Service Order')),
+    ('R', _('Job Request')),
+    ('J', _('Job Site')),
+
+    
+)
+# Service Status
+STATUS_CODES = (
+    ('1', _('Pending')),
+    ('2', _('Ready')),
+    ('3', _('QCd')),
+    ('4', _('Shipped')),
+    ('5', _('Recevied')),
+)
+
+
