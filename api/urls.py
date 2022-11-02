@@ -4,19 +4,24 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 from api import views
 
 urlpatterns = [
+    path('', views.api_root),
+
     # models
+    path('users/', views.UserList.as_view(), name='user-list'),
+    path('profile/<int:pk>', views.profileDetail.as_view(), name='profile-detail'),
+    path('user/<int:pk>/', views.UserDetail.as_view(), name='user-detail'),
     path('service/comments/', views.CommentList.as_view()),
     path('customers/', views.CustomerList.as_view()),
     path('service/jobsites/', views.JobSiteList.as_view()),
-    path('service/order/sequence/', views.OrderSequenceList.as_view()),
-    path('service/order/addendum/', views.OrderAddendumList.as_view()),
-    path('service/order/<int:pk>/', views.OrderAddendumDetail.as_view()),
-    path('service/order/items/', views.ItemList.as_view()),
-    path('profiles/', views.ProfileList.as_view()),
-    path('service/Schedules/', views.ScheduleList.as_view()),
+    path('service/orders', views.OrderSequenceList.as_view(), name='sequence-list'),
+    path('service/order/sequence/<int:pk>', views.OrderSequenceDetail.as_view(), name='sequence-detail'),
+    path('service/order/addendum/<int:pk>', views.OrderAddendumDetail.as_view(), name='addendum-detail'),
+    path('service/order/item/<int:pk>', views.ItemDetail.as_view(), name='item-detail'),
+    path('service/schedules/', views.ScheduleList.as_view(), name='schedule-list'),
+    path('service/schedule/<int:pk>', views.ScheduleDetail.as_view(), name='schedule-detail'),
     path('service/centers/', views.ServiceCenterList.as_view()),
     path('service/techs/', views.TechnicianList.as_view()),
-    # Swagger Reference Definitions Download
+    # OpenAPI Reference Definitions Download
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Swagger UI:
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

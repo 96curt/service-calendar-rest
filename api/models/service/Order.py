@@ -39,7 +39,11 @@ class OrderAddendum(models.Model):
     # Order Addendum Number
     number = models.PositiveSmallIntegerField(editable=False)
 
-    sequence = models.ForeignKey(OrderSequence,on_delete=models.CASCADE)
+    sequence = models.ForeignKey(
+        OrderSequence,
+        on_delete=models.CASCADE,
+        related_name='addendum_set',
+    )
     # Service request Description
     description = models.CharField(max_length = 128)
     # Est Labor Hours
@@ -67,10 +71,13 @@ class OrderAddendum(models.Model):
             self.number = 1
         super(OrderAddendum,self).save(args,kwargs)
 
-# Any replacement parts that need to be ordered are an item and is related an addendum
+# Any replacement parts that need to be ordered are an item and is related to an addendum
 class OrderItem(models.Model):
     number = models.PositiveSmallIntegerField(editable=False)
-    addendum = models.ForeignKey(OrderAddendum, on_delete=models.CASCADE )
+    addendum = models.ForeignKey(
+        OrderAddendum,
+        on_delete=models.CASCADE,
+        related_name='item_set' )
     partOrder = models.CharField(max_length=8)
     partItem = models.DecimalField(max_digits=3, decimal_places=0)
     partDesc = models.CharField(max_length=30)

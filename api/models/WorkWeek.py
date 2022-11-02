@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 
 class WorkWeek(models.Model):
@@ -17,6 +16,8 @@ class WorkWeek(models.Model):
                 ( 'F' if self.friday else '' ) + \
                 ( 'Sa' if self.saturday else '' ) + \
                 ( 'Su' if self.sunday else '' )
+    class Meta:
+        models.UniqueConstraint(fields=['monday', 'tuesday', 'wedesday', 'thursday', 'friday', 'saturday', 'sunday'], name='unique_weeks') 
 
 def get_sentinel_workWeek():
     return WorkWeek.objects.get_or_create()

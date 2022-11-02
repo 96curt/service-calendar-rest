@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'api',
     'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'docker',
         'USER': 'docker',
-        'PASSWORD': 'docker',
+        'PASSWORD': 'docker', # Change to secure password
         'HOST': 'db',
         'PORT': '3306',
     }
@@ -132,18 +133,27 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    # YOUR SETTINGS
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Service Calendar API',
     'DESCRIPTION': 'Mockup Service Calendar API',
-    'VERSION': '1.1.0',
+    'VERSION': '1.2.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    # OTHER SETTINGS
+    'SERVE_PERMISSIONS': ['rest_framework.permissions.IsAuthenticated']
+    
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-

@@ -13,11 +13,13 @@ from django.conf import settings
 
 class Schedule(models.Model):
     # Service Order id
-    order = models.ForeignKey(
+    addendum = models.ForeignKey(
         OrderAddendum,
         on_delete=models.CASCADE,
         blank=True,
-        null=True
+        null=True,
+        related_name='schedule_set',
+        db_column='addendum_id',
     )
     # Service Center
     serviceCenter = models.ForeignKey(
@@ -39,7 +41,7 @@ class Schedule(models.Model):
         on_delete=models.SET(helper.get_sentinel_user),
         related_name='confirmedBy',
         blank=True,
-        null=True
+        null=True,
     )
     
     description = models.CharField(max_length=1024, null=True)
