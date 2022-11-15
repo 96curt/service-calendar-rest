@@ -10,9 +10,9 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = serializers.UserSerializer
+# class UserList(generics.ListAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = serializers.UserSerializer
 
 class profileDetail(generics.RetrieveAPIView):
     queryset = Profile.Profile.objects.all()
@@ -21,7 +21,8 @@ class profileDetail(generics.RetrieveAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
-
+    lookup_field = 'username'
+    permission_class = permissions.IsAuthenticated
 class CommentList(generics.ListCreateAPIView):
     queryset = Comment.Comment.objects.all()
     serializer_class = serializers.CommentSerializer
@@ -87,9 +88,4 @@ def api_root(request, format=None):
     return Response({
         'admin': reverse('admin:index',request=request, format=format),
         'swagger-ui': reverse('swagger-ui',request=request, format=format),
-        'users': reverse('user-list', request=request, format=format),
-        'service/orders': reverse('sequence-list', request=request, format=format),
-        'service/order/sequence/1': reverse('sequence-detail', request=request, format=format, kwargs={'pk':1}),
-        'service/order/addendum/1': reverse('addendum-detail', request=request, format=format, kwargs={'pk':1}),
-        'service/schedule/1': reverse('schedule-detail', request=request, format=format, kwargs={'pk':1})
     })
