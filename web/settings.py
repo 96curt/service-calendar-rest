@@ -25,8 +25,13 @@ SECRET_KEY = 'django-insecure-v#!1zd&^fvlw%q_-t#26e598bj!73j24rs=f7un@0)1l9oxdd_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['api.curtishohman.info', 'localhost']
+CSRF_TRUSTED_ORIGIN = ["https://api.curtishohman.info"]
 
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Application definition
 
