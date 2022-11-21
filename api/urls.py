@@ -5,8 +5,8 @@ from api import views
 
 urlpatterns = [
     # Auth
-    path('login', views.LoginView.as_view()),
-    path('logout', views.LogoutView.as_view()),
+    path('auth/login', views.LoginView.as_view()),
+    path('auth/logout', views.LogoutView.as_view()),
     # models
     path('profile/', views.ProfileDetail.as_view(), name='profile'),
     path('service/comments/', views.CommentList.as_view()),

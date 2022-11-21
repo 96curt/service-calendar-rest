@@ -153,9 +153,9 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Service Calendar API',
     'DESCRIPTION': 'Mockup Service Calendar API',
-    'VERSION': '0.4.0',
+    'VERSION': '0.5.1',
     'SERVE_INCLUDE_SCHEMA': False,
-    'SERVE_PERMISSIONS': ['rest_framework.permissions.IsAuthenticated']
+    #'SERVE_PERMISSIONS': ['rest_framework.permissions.IsAuthenticated']
     
 }
 
