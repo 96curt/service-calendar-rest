@@ -1,10 +1,12 @@
 # LoginSerializer from https://www.guguweb.com/2022/01/23/django-rest-framework-authentication-the-easy-way/
 
+from django.conf import settings
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
 from api.models import Customer, Profile
 from django.contrib.auth.models import User
+
 
 class LoginSerializer(serializers.Serializer):
     """
@@ -82,12 +84,15 @@ class JobSiteSerializer(serializers.ModelSerializer):
 
 
 class OrderSequenceListSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Order.OrderSequence
         fields = '__all__'
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
+    #startDateTime = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
+    #endDateTime = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
     class Meta:
         model = Schedule.Schedule
         fields = '__all__'

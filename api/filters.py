@@ -4,16 +4,14 @@ from api.models.service import Schedule, Order
 
 
 class ScheduleFilter(filters.FilterSet):
-    date = filters.DateFromToRangeFilter()
+    startDateTime = filters.DateTimeFromToRangeFilter()
 
     class Meta:
         model = Schedule.Schedule
         fields = [
-            'date',
+            'startDate',
             'serviceCenter',
             'technicians',
-            'startTime',
-            'endTime',
             'addendum__sequence__region',
             'addendum__sequence__serviceCenter__manager',
             'addendum__sequence__jobSite__zipCode',
