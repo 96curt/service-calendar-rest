@@ -91,8 +91,8 @@ class OrderSequenceListSerializer(serializers.ModelSerializer):
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
-    #startDateTime = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
-    #endDateTime = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
+    startDateTime = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
+    endDateTime = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
     class Meta:
         model = Schedule.Schedule
         fields = '__all__'

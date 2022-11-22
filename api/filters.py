@@ -9,7 +9,7 @@ class ScheduleFilter(filters.FilterSet):
     class Meta:
         model = Schedule.Schedule
         fields = [
-            'startDate',
+            'startDateTime',
             'serviceCenter',
             'technicians',
             'addendum__sequence__region',

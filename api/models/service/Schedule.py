@@ -1,4 +1,5 @@
 from datetime import timedelta, datetime
+from django.utils import timezone
 from django.db import models
 from api.models.service.Order import OrderAddendum
 from api.models.service.ServiceCenter import ServiceCenter
@@ -51,9 +52,9 @@ class Schedule(models.Model):
     technicians = models.ManyToManyField(
         Technician
     )
-    #startDateTime = models.DateTimeField(default=datetime.today)
-    #endDateTime = models.DateTimeField(default=datetime.today)
-    startDate = models.DateField(
+    startDateTime = models.DateTimeField(default=datetime(2022,11,22,8,0,0,0,timezone.get_current_timezone()))
+    endDateTime = models.DateTimeField(default=datetime(2022,11,22,8,0,0,0,timezone.get_current_timezone()))
+    """ startDate = models.DateField(
         default=datetime.today
     )
     endDate = models.DateField(
@@ -64,7 +65,7 @@ class Schedule(models.Model):
     )
     endTime = models.TimeField(
         default=datetime.today
-    )
+    ) """
     travelHours = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self) -> str:
