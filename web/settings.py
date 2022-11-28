@@ -30,19 +30,39 @@ ALLOWED_HOSTS = [
     'localhost'
 ]
 
+#SESSION_COOKIE_SECURE = True
+#SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:4200',
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:4200',
+#CSRF_COOKIE_SECURE = True
+#CSRF_COOKIE_DOMAIN = []
+
+CSRF_HEADER_NAME = 'HTTP_X_CSRF_TOKEN'
+CSRF_COOKIE_NAME = 'csrf-token' 
+CSRF_COOKIE_PATH = '/'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
 ]
+
 
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-#SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrf-token",
+    "x-requested-with",
+]
+
 
 # Application definition
 
@@ -61,9 +81,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

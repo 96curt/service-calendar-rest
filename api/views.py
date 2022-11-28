@@ -9,10 +9,10 @@ from rest_framework.reverse import reverse
 from django.contrib.auth import login, logout
 from drf_spectacular.utils import extend_schema
 
-
 class LoginView(views.APIView):
     # This view should be accessible also for unauthenticated users.
     permission_classes = (permissions.AllowAny,)
+    authentication_classes = ()
 
     @extend_schema(
         request=serializers.LoginSerializer
@@ -26,8 +26,7 @@ class LoginView(views.APIView):
         return Response(None, status=status.HTTP_202_ACCEPTED)
 
 class LogoutView(views.APIView):
-    permission_classes = (permissions.AllowAny,)
-    
+
     def post(self, request, format=None):
         logout(request)
         return Response(None, status=status.HTTP_204_NO_CONTENT)
@@ -57,16 +56,17 @@ class CustomerList(generics.ListAPIView):
 class OrderSequenceList(generics.ListAPIView):
     queryset = Order.OrderSequence.objects.all()
     serializer_class = serializers.OrderSequenceListSerializer
-
+    filterset_class = filters.OrderSequenceFilter
 
 class OrderSequenceDetail(generics.RetrieveAPIView):
     queryset = Order.OrderSequence.objects.all()
     serializer_class = serializers.OrderSequenceDetailSerializer
 
-# class OrderAddendumList(generics.ListAPIView):
-#     queryset = Order.OrderAddendum.objects.all()
-#     serializer_class = serializers.Order
-#     filterset_class = filters.OrderAddendumFilter
+
+class OrderAddendumList(generics.ListAPIView):
+    queryset = Order.OrderAddendum.objects.all()
+    serializer_class = serializers.Order
+    filterset_class = filters.OrderAddendumFilter
 
 
 class OrderAddendumDetail(generics.RetrieveAPIView):
@@ -85,6 +85,7 @@ class JobSiteList(generics.ListAPIView):
 
 
 class ScheduleList(generics.ListCreateAPIView):
+    
     queryset = Schedule.Schedule.objects.all()
     serializer_class = serializers.ScheduleSerializer
     filterset_class = filters.ScheduleFilter
@@ -93,6 +94,7 @@ class ScheduleList(generics.ListCreateAPIView):
 class ScheduleDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Schedule.Schedule.objects.all()
     serializer_class = serializers.ScheduleSerializer
+    
 
 
 class ServiceCenterList(generics.ListAPIView):

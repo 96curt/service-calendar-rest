@@ -18,12 +18,12 @@ class ScheduleFilter(filters.FilterSet):
             'addendum__sequence__jobSite__city',
         ]
 
-# class OrderAddendumFilter(filters.FilterSet):
-#     class Meta:
-#         model = Order.OrderAddendum
-#         fields = ['sequence__number', 'number', 'status', 'statusDate']
+class OrderAddendumFilter(filters.FilterSet):
+    class Meta:
+        model = Order.OrderAddendum
+        fields = ['sequence__number', 'number', 'status', 'statusDate']
 
-# class OrderSequenceFilter(filters.FilterSet):
-#     class Meta:
-#         model = Order.OrderSequence
-#         fields = ['region', 'number']
+class OrderSequenceFilter(filters.FilterSet):
+    class Meta:
+        model = Order.OrderSequence
+        fields = ['region', 'number']
