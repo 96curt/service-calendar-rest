@@ -21,7 +21,7 @@ class ScheduleFilter(filters.FilterSet):
 class OrderAddendumFilter(filters.FilterSet):
     class Meta:
         model = Order.OrderAddendum
-        fields = ['sequence__number', 'number', 'status', 'statusDate']
+        fields = ['sequence__number', 'sequence__region','number', 'status', 'statusDate']
 
 class OrderSequenceFilter(filters.FilterSet):
     class Meta:

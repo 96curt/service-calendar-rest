@@ -122,10 +122,11 @@ class OrderAddendumDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'number', 'description', 'laborHours', 'travelHours',
                   'trips', 'status', 'statusDate', 'item_set', 'schedule_set']
 
-# class OrderAddendumListSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ServiceCenter.ServiceCenter
-#         fields = ['__str__','description','status', 'statusDate']
+class OrderAddendumListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order.OrderAddendum
+        fields = ['id','number','sequence','__str__', 'description',  'trips',
+         'travelHours', 'laborHours', 'status', 'statusDate']
 
 
 class OrderSequenceDetailSerializer(serializers.ModelSerializer):

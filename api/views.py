@@ -65,7 +65,7 @@ class OrderSequenceDetail(generics.RetrieveAPIView):
 
 class OrderAddendumList(generics.ListAPIView):
     queryset = Order.OrderAddendum.objects.all()
-    serializer_class = serializers.Order
+    serializer_class = serializers.OrderAddendumListSerializer
     filterset_class = filters.OrderAddendumFilter
 
 
