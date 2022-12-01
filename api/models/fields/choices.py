@@ -130,5 +130,3 @@ STATUS_CODES = (
     ('4', _('Shipped')),
     ('5', _('Recevied')),
 )
-
-

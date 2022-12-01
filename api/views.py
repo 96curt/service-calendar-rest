@@ -6,6 +6,7 @@ from api import filters
 from rest_framework import permissions, views, status
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.decorators import api_view
 from django.contrib.auth import login, logout
 from drf_spectacular.utils import extend_schema
 
@@ -105,11 +106,4 @@ class ServiceCenterList(generics.ListAPIView):
 class TechnicianList(generics.ListAPIView):
     queryset = Technician.Technician.objects.all()
     serializer_class = serializers.TechnicianSerializer
-
-
-
-def api_root(request, format=None):
-    return Response({
-        'admin': reverse('admin:index', request=request, format=format),
-        'swagger-ui': reverse('swagger-ui', request=request, format=format),
-    })
+    filterset_class = filters.TechnicianFilter

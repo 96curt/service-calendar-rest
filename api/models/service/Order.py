@@ -22,7 +22,10 @@ class OrderSequence(models.Model):
         return str(self.region) + '-' + str(self.number)
 
     class Meta:
-        models.UniqueConstraint(fields=['number', 'region'], name='unique_sequence') 
+        constraints = [
+            models.UniqueConstraint(fields=['number', 'region'], name='unique_sequence') 
+        ]
+        
 
     def save(self, *args, **kwargs):
         self.region = self.jobSite.region
@@ -57,11 +60,16 @@ class OrderAddendum(models.Model):
     # Srvc Sts Date
     statusDate = models.DateField(auto_now=True)
 
-    def __str__(self):
+    def name(self):
         return self.sequence.__str__() + '.' + str(self.number)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
-        models.UniqueConstraint(fields=['number', 'sequence'], name='unique_addendum') 
+        constraints = [
+            models.UniqueConstraint(fields=['number', 'sequence'], name='unique_addendum') 
+        ]
 
     def save(self, *args, **kwargs):
         presentKeys = OrderAddendum.objects.filter(sequence=self.sequence).order_by('-number').values_list('number', flat=True)
@@ -85,7 +93,9 @@ class OrderItem(models.Model):
     warrantyCode = Fields.WarrantyCodeField()
 
     class Meta:
-        models.UniqueConstraint(fields=['number', 'addendum'], name='unique_item') 
+        constraints = [
+            models.UniqueConstraint(fields=['number', 'addendum'], name='unique_item') 
+        ]
 
     def save(self, *args, **kwargs):
         presentKeys = OrderItem.objects.filter(addendum=self.addendum).order_by('-number').values_list('number', flat=True)

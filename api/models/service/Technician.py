@@ -18,7 +18,7 @@ class Technician(models.Model):
     # Tech Last Name
     lastName = models.CharField(max_length=128, default="")
     # Tech Work Days 
-    workWeek = models.OneToOneField(WorkWeek,on_delete=models.SET_NULL,null=True)
+    workWeek = models.ForeignKey(WorkWeek,on_delete=models.SET_NULL,null=True)
     # active
     active = models.BooleanField(default=True)
     #lunch time
@@ -26,7 +26,10 @@ class Technician(models.Model):
     #    default = time(hour=12)
     #)
 
-    def __str__(self):
+    def fullName(self) -> str:
         return self.firstName + ' ' + self.lastName
 
-    
+    def __str__(self) -> str:
+        return self.fullName()
+
+        
