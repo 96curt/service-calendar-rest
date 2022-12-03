@@ -5,11 +5,13 @@ from api.models.service import Schedule, Order, Technician
 
 class ScheduleFilter(filters.FilterSet):
     startDateTime = filters.DateTimeFromToRangeFilter()
+    endDateTime = filters.DateTimeFromToRangeFilter()
 
     class Meta:
         model = Schedule.Schedule
         fields = [
             'startDateTime',
+            'endDateTime',
             'serviceCenter',
             'technicians',
             'addendum__sequence__region',
@@ -44,6 +46,8 @@ class TechnicianFilter(filters.FilterSet):
         model = Technician.Technician
         fields = [
             'primaryCenter',
+            'primaryCenter__region',
+            'primaryCenter__manager',
             'qualifier',
             'type',
             'workWeek',

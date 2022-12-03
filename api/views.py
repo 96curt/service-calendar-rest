@@ -1,5 +1,5 @@
 from rest_framework import generics
-from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
+from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician, Region
 from api.models import Customer
 from api import serializers
 from api import filters
@@ -107,3 +107,7 @@ class TechnicianList(generics.ListAPIView):
     queryset = Technician.Technician.objects.all()
     serializer_class = serializers.TechnicianSerializer
     filterset_class = filters.TechnicianFilter
+
+class RegionList(generics.ListAPIView):
+    queryset = Region.Region.objects.all()
+    serializer_class = serializers.RegionSerializer

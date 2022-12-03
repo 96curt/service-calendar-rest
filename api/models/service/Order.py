@@ -1,18 +1,18 @@
-from email.policy import default
 from django.db import models
 
 from api.models.fields import Fields
 from api.models.service.JobSite import JobSite
 from api.models.service.ServiceCenter import ServiceCenter
 from api.models.Customer import Customer
-
+from api.models.service.Region import Region
 # For each Job site a sequence is created.
 class OrderSequence(models.Model):
     # Order Sequence Number
     number = models.PositiveSmallIntegerField(editable=False)
-    region = Fields.RegionField(editable=False)
+    #region = Fields.RegionField(editable=False)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
     # Jobsite Location
-    jobSite = models.OneToOneField(JobSite,on_delete=models.CASCADE)
+    jobSite = models.OneToOneField(JobSite, on_delete=models.CASCADE)
     # Assigned Service Center
     serviceCenter = models.ForeignKey(ServiceCenter, on_delete=models.CASCADE)
     # Billing Customer

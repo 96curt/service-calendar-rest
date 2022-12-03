@@ -4,7 +4,7 @@ from django.conf import settings
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from api.models.WorkWeek import WorkWeek
-from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
+from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician, Region
 from api.models import Customer, Profile
 from django.contrib.auth.models import User
 
@@ -196,3 +196,9 @@ class TechnicianSerializer(serializers.ModelSerializer):
             'workWeek',
             'active',
         ]
+
+
+class RegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region.Region
+        fields = '__all__'
