@@ -3,7 +3,8 @@
 from django.conf import settings
 from rest_framework import serializers
 from django.contrib.auth import authenticate
-from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
+from api.models.WorkWeek import WorkWeek
+from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician, Region
 from api.models import Customer, Profile
 from django.contrib.auth.models import User
 
@@ -59,10 +60,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name',
-                  'last_name', 'email', 'profile']
-
-
+        fields = [
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'profile',
+        ]
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -119,13 +124,35 @@ class OrderAddendumDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Order.OrderAddendum
-        fields = ['id', 'number', 'description', 'laborHours', 'travelHours',
-                  'trips', 'status', 'statusDate', 'item_set', 'schedule_set']
+        fields = [
+            'id',
+            'number',
+            'sequence',
+            'description',
+            'laborHours',
+            'travelHours',
+            'trips',
+            'status',
+            'statusDate',
+            'item_set',
+            'schedule_set',
+        ]
 
-# class OrderAddendumListSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ServiceCenter.ServiceCenter
-#         fields = ['__str__','description','status', 'statusDate']
+class OrderAddendumListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order.OrderAddendum
+        fields = [
+            'id',
+            'number',
+            'sequence',
+            'name',
+            'description',
+            'trips',
+            'travelHours',
+            'laborHours',
+            'status',
+            'statusDate',
+        ]
 
 
 class OrderSequenceDetailSerializer(serializers.ModelSerializer):
@@ -142,7 +169,36 @@ class ServiceCenterSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class WorkWeekSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkWeek
+        fields = [
+            'monday',
+            'tuesday',
+            'wedesday',
+            'thursday',
+            'friday',
+            'saturday',
+            'sunday',
+        ]
 class TechnicianSerializer(serializers.ModelSerializer):
+    workWeek = WorkWeekSerializer(many=False)
     class Meta:
         model = Technician.Technician
+        fields = [
+            'id',
+            'primaryCenter',
+            'qualifier',
+            'type',
+            'firstName',
+            'lastName',
+            'fullName',
+            'workWeek',
+            'active',
+        ]
+
+
+class RegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region.Region
         fields = '__all__'

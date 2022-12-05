@@ -1,11 +1,12 @@
 from rest_framework import generics
-from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
+from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician, Region
 from api.models import Customer
 from api import serializers
 from api import filters
 from rest_framework import permissions, views, status
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.decorators import api_view
 from django.contrib.auth import login, logout
 from drf_spectacular.utils import extend_schema
 
@@ -65,7 +66,7 @@ class OrderSequenceDetail(generics.RetrieveAPIView):
 
 class OrderAddendumList(generics.ListAPIView):
     queryset = Order.OrderAddendum.objects.all()
-    serializer_class = serializers.Order
+    serializer_class = serializers.OrderAddendumListSerializer
     filterset_class = filters.OrderAddendumFilter
 
 
@@ -105,11 +106,8 @@ class ServiceCenterList(generics.ListAPIView):
 class TechnicianList(generics.ListAPIView):
     queryset = Technician.Technician.objects.all()
     serializer_class = serializers.TechnicianSerializer
+    filterset_class = filters.TechnicianFilter
 
-
-
-def api_root(request, format=None):
-    return Response({
-        'admin': reverse('admin:index', request=request, format=format),
-        'swagger-ui': reverse('swagger-ui', request=request, format=format),
-    })
+class RegionList(generics.ListAPIView):
+    queryset = Region.Region.objects.all()
+    serializer_class = serializers.RegionSerializer

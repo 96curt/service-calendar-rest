@@ -68,6 +68,10 @@ class Schedule(models.Model):
     ) """
     travelHours = models.DecimalField(max_digits=6, decimal_places=2)
 
+    allDay = models.BooleanField(default=False)
+
+    recurrenceRule = models.CharField(null=True,max_length=256)
+
     def __str__(self) -> str:
         return self.startDateTime.strftime('%m/%d/%Y-%H:%M')
 

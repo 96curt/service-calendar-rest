@@ -1,18 +1,18 @@
-from email.policy import default
 from django.db import models
 
 from api.models.fields import Fields
 from api.models.service.JobSite import JobSite
 from api.models.service.ServiceCenter import ServiceCenter
 from api.models.Customer import Customer
-
+from api.models.service.Region import Region
 # For each Job site a sequence is created.
 class OrderSequence(models.Model):
     # Order Sequence Number
     number = models.PositiveSmallIntegerField(editable=False)
-    region = Fields.RegionField(editable=False)
+    #region = Fields.RegionField(editable=False)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
     # Jobsite Location
-    jobSite = models.OneToOneField(JobSite,on_delete=models.CASCADE)
+    jobSite = models.OneToOneField(JobSite, on_delete=models.CASCADE)
     # Assigned Service Center
     serviceCenter = models.ForeignKey(ServiceCenter, on_delete=models.CASCADE)
     # Billing Customer
@@ -22,7 +22,10 @@ class OrderSequence(models.Model):
         return str(self.region) + '-' + str(self.number)
 
     class Meta:
-        models.UniqueConstraint(fields=['number', 'region'], name='unique_sequence') 
+        constraints = [
+            models.UniqueConstraint(fields=['number', 'region'], name='unique_sequence') 
+        ]
+        
 
     def save(self, *args, **kwargs):
         self.region = self.jobSite.region
@@ -57,11 +60,16 @@ class OrderAddendum(models.Model):
     # Srvc Sts Date
     statusDate = models.DateField(auto_now=True)
 
-    def __str__(self):
+    def name(self):
         return self.sequence.__str__() + '.' + str(self.number)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
-        models.UniqueConstraint(fields=['number', 'sequence'], name='unique_addendum') 
+        constraints = [
+            models.UniqueConstraint(fields=['number', 'sequence'], name='unique_addendum') 
+        ]
 
     def save(self, *args, **kwargs):
         presentKeys = OrderAddendum.objects.filter(sequence=self.sequence).order_by('-number').values_list('number', flat=True)
@@ -85,7 +93,9 @@ class OrderItem(models.Model):
     warrantyCode = Fields.WarrantyCodeField()
 
     class Meta:
-        models.UniqueConstraint(fields=['number', 'addendum'], name='unique_item') 
+        constraints = [
+            models.UniqueConstraint(fields=['number', 'addendum'], name='unique_item') 
+        ]
 
     def save(self, *args, **kwargs):
         presentKeys = OrderItem.objects.filter(addendum=self.addendum).order_by('-number').values_list('number', flat=True)

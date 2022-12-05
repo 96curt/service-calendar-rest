@@ -17,7 +17,10 @@ class WorkWeek(models.Model):
                 ( 'Sa' if self.saturday else '' ) + \
                 ( 'Su' if self.sunday else '' )
     class Meta:
-        models.UniqueConstraint(fields=['monday', 'tuesday', 'wedesday', 'thursday', 'friday', 'saturday', 'sunday'], name='unique_weeks') 
+        constraints = [
+            models.UniqueConstraint(fields=['monday', 'tuesday', 'wedesday', 'thursday', 'friday', 'saturday', 'sunday'], name='unique_weeks') 
+        ]
+        
 
 def get_sentinel_workWeek():
     return WorkWeek.objects.get_or_create()
