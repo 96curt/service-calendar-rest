@@ -1,6 +1,6 @@
 from rest_framework import generics
-from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician, Region
-from api.models import Customer
+from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
+from api.models import Customer, Region
 from api import serializers
 from api import filters
 from rest_framework import permissions, views, status
@@ -39,12 +39,12 @@ class ProfileDetail(generics.RetrieveAPIView):
         return self.request.user
 
 
-class CommentList(generics.ListCreateAPIView):
+class CommentList(generics.ListAPIView):
     queryset = Comment.Comment.objects.all()
     serializer_class = serializers.CommentSerializer
 
 
-class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+class CommentDetail(generics.RetrieveAPIView):
     queryset = Comment.Comment.objects.all()
     serializer_class = serializers.CommentSerializer
 
@@ -53,26 +53,30 @@ class CustomerList(generics.ListAPIView):
     queryset = Customer.Customer.objects.all()
     serializer_class = serializers.CustomerSerializer
 
+class CustomerDetail(generics.RetrieveAPIView):
+    queryset = Customer.Customer.objects.all()
+    serializer_class = serializers.CustomerSerializer
+
 
 class OrderSequenceList(generics.ListAPIView):
     queryset = Order.OrderSequence.objects.all()
-    serializer_class = serializers.OrderSequenceListSerializer
+    serializer_class = serializers.OrderSequenceSerializer
     filterset_class = filters.OrderSequenceFilter
 
 class OrderSequenceDetail(generics.RetrieveAPIView):
     queryset = Order.OrderSequence.objects.all()
-    serializer_class = serializers.OrderSequenceDetailSerializer
+    serializer_class = serializers.OrderSequenceSerializer
 
 
 class OrderAddendumList(generics.ListAPIView):
     queryset = Order.OrderAddendum.objects.all()
-    serializer_class = serializers.OrderAddendumListSerializer
+    serializer_class = serializers.OrderAddendumSerializer
     filterset_class = filters.OrderAddendumFilter
 
 
 class OrderAddendumDetail(generics.RetrieveAPIView):
     queryset = Order.OrderAddendum.objects.all()
-    serializer_class = serializers.OrderAddendumDetailSerializer
+    serializer_class = serializers.OrderAddendumSerializer
 
 
 class ItemDetail(generics.RetrieveAPIView):
@@ -85,8 +89,11 @@ class JobSiteList(generics.ListAPIView):
     serializer_class = serializers.JobSiteSerializer
 
 
+class JobSiteDetail(generics.RetrieveAPIView):
+    queryset = JobSite.JobSite.objects.all()
+    serializer_class = serializers.JobSiteSerializer
+
 class ScheduleList(generics.ListCreateAPIView):
-    
     queryset = Schedule.Schedule.objects.all()
     serializer_class = serializers.ScheduleSerializer
     filterset_class = filters.ScheduleFilter
@@ -96,6 +103,9 @@ class ScheduleDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Schedule.Schedule.objects.all()
     serializer_class = serializers.ScheduleSerializer
     
+class ScheduleExtra(generics.RetrieveAPIView):
+    queryset = Schedule.Schedule.objects.all()
+    serializer_class = serializers.ScheduleSerializerExtended
 
 
 class ServiceCenterList(generics.ListAPIView):

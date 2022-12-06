@@ -3,7 +3,7 @@ from django.db import models
 from api.models.abstract.AbstractLocation import AbstractLocation
 from api.models.Customer import Customer
 #from api.models.fields.Fields import RegionField
-from api.models.service.Region import Region
+from api.models.Region import Region
 class JobSite(AbstractLocation):
     #region = RegionField()
     region = models.ForeignKey(Region, on_delete=models.CASCADE)

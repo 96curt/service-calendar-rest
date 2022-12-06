@@ -8,7 +8,7 @@ from api.models.service.Order import OrderAddendum, OrderSequence, OrderItem
 from api.models.service.Schedule import Schedule
 from api.models.service.ServiceCenter import ServiceCenter
 from api.models.service.Technician import Technician
-from api.models.service.Region import Region
+from api.models.Region import Region
 
 # Register your models here.
 

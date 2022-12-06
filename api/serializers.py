@@ -4,8 +4,8 @@ from django.conf import settings
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from api.models.WorkWeek import WorkWeek
-from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician, Region
-from api.models import Customer, Profile
+from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
+from api.models import Customer, Profile, Region
 from django.contrib.auth.models import User
 
 
@@ -88,7 +88,7 @@ class JobSiteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class OrderSequenceListSerializer(serializers.ModelSerializer):
+class OrderSequenceSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Order.OrderSequence
@@ -109,36 +109,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class OrderAddendumDetailSerializer(serializers.HyperlinkedModelSerializer):
-    item_set = serializers.HyperlinkedRelatedField(
-        view_name='item-detail',
-        many=True,
-        read_only=True,
-    )
-
-    schedule_set = serializers.HyperlinkedRelatedField(
-        view_name='schedule-detail',
-        many=True,
-        read_only=True,
-    )
-
-    class Meta:
-        model = Order.OrderAddendum
-        fields = [
-            'id',
-            'number',
-            'sequence',
-            'description',
-            'laborHours',
-            'travelHours',
-            'trips',
-            'status',
-            'statusDate',
-            'item_set',
-            'schedule_set',
-        ]
-
-class OrderAddendumListSerializer(serializers.ModelSerializer):
+class OrderAddendumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order.OrderAddendum
         fields = [
@@ -153,14 +124,6 @@ class OrderAddendumListSerializer(serializers.ModelSerializer):
             'status',
             'statusDate',
         ]
-
-
-class OrderSequenceDetailSerializer(serializers.ModelSerializer):
-    addendum_set = OrderAddendumDetailSerializer(many=True)
-
-    class Meta:
-        model = Order.OrderSequence
-        fields = ['id', 'region', 'number', 'addendum_set']
 
 
 class ServiceCenterSerializer(serializers.ModelSerializer):
@@ -181,6 +144,8 @@ class WorkWeekSerializer(serializers.ModelSerializer):
             'saturday',
             'sunday',
         ]
+
+
 class TechnicianSerializer(serializers.ModelSerializer):
     workWeek = WorkWeekSerializer(many=False)
     class Meta:
@@ -202,3 +167,29 @@ class RegionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Region.Region
         fields = '__all__'
+
+
+class ScheduleSerializerExtended(serializers.ModelSerializer):
+    addendum = OrderAddendumSerializer(many=False)
+    serviceCenter = ServiceCenterSerializer(many=False)
+    scheduledBy = UserSerializer(many=False)
+    confirmedBy = UserSerializer(many=False)
+    technicians = TechnicianSerializer(many=True)
+
+    class Meta:
+        model = Schedule.Schedule
+        fields = [
+            'id',
+            'description',
+            'startDateTime',
+            'endDateTime',
+            'addendum',
+            'serviceCenter',
+            'scheduledBy',
+            'confirmed',
+            'confirmedBy',
+            'technicians',
+            'travelHours',
+            'allDay',
+            'recurrenceRule',
+        ]
