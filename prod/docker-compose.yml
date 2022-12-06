@@ -1,29 +1,36 @@
-# Development Stack
+# Production Stack
 
 version: '3'
-
 networks:
-  backend:
+  prod-service-calendar:
     external: true
 
+volumes:
+  static:
 
 services:
-  web:
-    user: 1000:1000
-    build: .
-    command: python manage.py runserver 0.0.0.0:8888
+  django_gunicorn:
+    volumes:
+      - static:/static
+    env_file:
+      - ../.env
+    build:
+      context: ../
+      dockerfile: ./prod/Dockerfile
     depends_on:
       - db
-    volumes:
-      - .:/code
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "8888:8888"
     networks:
-      - backend
-  
+      - prod-service-calendar
+    
+  nginx:
+    build: ./nginx
+    volumes:
+      - static:/static
+    ports:
+      - "8082:80"
+    depends_on:
+      - django_gunicorn
+
   db:
     image: mariadb
     user: mysql:mysql
@@ -37,4 +44,4 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     networks:
-      - backend
+      - prod-service-calendar
