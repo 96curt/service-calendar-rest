@@ -64,7 +64,7 @@ class OrderAddendum(models.Model):
         return self.sequence.__str__() + '.' + str(self.number)
 
     def __str__(self):
-        return self.name
+        return self.name()
 
     class Meta:
         constraints = [

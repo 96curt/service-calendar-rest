@@ -22,33 +22,36 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-v#!1zd&^fvlw%q_-t#26e598bj!73j24rs=f7un@0)1l9oxdd_'
+SECRET_KEY = 'django-insecure-v#!1zd&^fvlw%q_-t#26e598bj!73j24rs=f7un@0)1l9oxdd_'
 
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+#SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = os.getenv('DEBUG')
+DEBUG = True
+#DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = [
+    "localhost",
     "api.curtishohman.info"
 ]
 
-SESSION_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+#SESSION_COOKIE_SECURE = True
+#SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:4200",
     "https://curtishohman.info",
 ]
 
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_DOMAIN = [".curtishohman.info"]
+#CSRF_COOKIE_SECURE = True
+#CSRF_COOKIE_DOMAIN = [".curtishohman.info"]
 
 CSRF_HEADER_NAME = "HTTP_X_CSRF_TOKEN"
 CSRF_COOKIE_NAME = "csrf-token"
 CSRF_COOKIE_PATH = "/"
 
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
     "https://curtishohman.info",
 ]
 

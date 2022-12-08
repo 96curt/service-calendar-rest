@@ -25,7 +25,9 @@ urlpatterns = [
     path('service/schedule/<int:pk>', views.ScheduleDetail.as_view(), name='schedule-detail'),
     #path('service/schedule/extra/<int:pk>', views.ScheduleExtra.as_view(), name='schedule-detail'),
     path('service/centers', views.ServiceCenterList.as_view()),
+    path('service/center/<int:pk>', views.ServiceCenterDetail.as_view()),
     path('service/techs', views.TechnicianList.as_view()),
+    path('service/tech/<int:pk>', views.TechnicianDetail.as_view()),
     # OpenAPI Reference Definitions Download
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     # Swagger UI:

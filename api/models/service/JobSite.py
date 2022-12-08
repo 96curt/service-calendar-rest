@@ -10,4 +10,4 @@ class JobSite(AbstractLocation):
     owner = models.ForeignKey(Customer, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.street + ' ' + self.street2 + ', ' + self.city + ', ' + self.state    
+        return self.street + (self.street2 if self.street2 else '' ) + ', ' + self.city + ', ' + self.state    

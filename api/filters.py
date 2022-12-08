@@ -39,6 +39,9 @@ class OrderSequenceFilter(filters.FilterSet):
         fields = [
             'region',
             'number',
+            'jobSite',
+            'serviceCenter',
+            'billingCust',
         ]
 
 class TechnicianFilter(filters.FilterSet):

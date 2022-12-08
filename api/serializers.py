@@ -100,7 +100,23 @@ class ScheduleSerializer(serializers.ModelSerializer):
     endDateTime = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
     class Meta:
         model = Schedule.Schedule
-        fields = '__all__'
+        fields = [
+            'id',
+            'label',
+            'startDateTime',
+            'endDateTime',
+            'confirmed',
+            'description',
+            'travelHours',
+            'allDay',
+            'recurrenceRule',
+            'addendum',
+            'serviceCenter',
+            'scheduledBy',
+            'confirmedBy',
+            'technicians',
+
+        ]
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
