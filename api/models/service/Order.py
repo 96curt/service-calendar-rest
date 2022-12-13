@@ -4,7 +4,7 @@ from api.models.fields import Fields
 from api.models.service.JobSite import JobSite
 from api.models.service.ServiceCenter import ServiceCenter
 from api.models.Customer import Customer
-from api.models.service.Region import Region
+from api.models.Region import Region
 # For each Job site a sequence is created.
 class OrderSequence(models.Model):
     # Order Sequence Number
@@ -19,7 +19,7 @@ class OrderSequence(models.Model):
     billingCust = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.region) + '-' + str(self.number)
+        return str(self.region.id) + '-' + str(self.number)
 
     class Meta:
         constraints = [
@@ -64,7 +64,7 @@ class OrderAddendum(models.Model):
         return self.sequence.__str__() + '.' + str(self.number)
 
     def __str__(self):
-        return self.name
+        return self.name()
 
     class Meta:
         constraints = [

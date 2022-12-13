@@ -47,33 +47,36 @@ class Schedule(models.Model):
         related_name='confirmedBy',
     )
     
-    description = models.CharField(max_length=1024, null=True)
+    description = models.CharField(max_length=1024, null=True, blank=True)
     # multiple technicians can be scheduled to an appointment
     technicians = models.ManyToManyField(
         Technician
     )
     startDateTime = models.DateTimeField(default=datetime(2022,11,22,8,0,0,0,timezone.get_current_timezone()))
     endDateTime = models.DateTimeField(default=datetime(2022,11,22,8,0,0,0,timezone.get_current_timezone()))
-    """ startDate = models.DateField(
-        default=datetime.today
-    )
-    endDate = models.DateField(
-        default=datetime.today
-    )
-    startTime = models.TimeField(
-        default=datetime.today
-    )
-    endTime = models.TimeField(
-        default=datetime.today
-    ) """
+
     travelHours = models.DecimalField(max_digits=6, decimal_places=2)
 
     allDay = models.BooleanField(default=False)
 
-    recurrenceRule = models.CharField(null=True,max_length=256)
+    recurrenceRule = models.CharField(blank=True,null=True,max_length=256)
+
+    def label(self):
+        if(self.addendum):
+            adden = self.addendum
+            cust = self.addendum.sequence.billingCust
+            job = self.addendum.sequence.jobSite
+
+            return ( 
+                '(' + str(adden.laborHours) + ') '
+                + cust.__str__() + ' '
+                + adden.name() + ' '
+                +  job.__str__()
+            )
+        return self.description
 
     def __str__(self) -> str:
-        return self.startDateTime.strftime('%m/%d/%Y-%H:%M')
+        return self.startDateTime.strftime('%m/%d/%Y-%H:%M') + ' ' + self.label()
 
     def save_model(self, request, obj, form, change):
         if not obj.pk:

@@ -1,6 +1,6 @@
 from django.db import models
 from api.models.abstract.AbstractLocation import AbstractLocation
-from api.models.service.Region import Region
+from api.models.Region import Region
 from api.models.fields import Fields
 
 class ServiceCenter(AbstractLocation):
