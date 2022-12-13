@@ -1,4 +1,4 @@
-# Production Container
+# Production Gunicorn Container
 # https://dzone.com/articles/how-to-deploy-a-django-application-with-docker
 
 
@@ -7,9 +7,11 @@ LABEL MAINTAINER="96curt"
 
 ENV PYTHONUNBUFFERED 1
 
-COPY ./ usr/src/app
 WORKDIR /usr/src/app
+COPY . .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
+COPY ./prod/prod-settings.py ./web/settings.py
 EXPOSE 8000
 ENTRYPOINT [ "sh","./prod/entrypoint.sh" ]

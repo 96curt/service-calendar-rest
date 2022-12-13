@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,33 +22,35 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-v#!1zd&^fvlw%q_-t#26e598bj!73j24rs=f7un@0)1l9oxdd_'
+# SECRET_KEY = 'django-insecure-v#!1zd&^fvlw%q_-t#26e598bj!73j24rs=f7un@0)1l9oxdd_'
 
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    'localhost'
+    "api.curtishohman.info"
 ]
 
-#SESSION_COOKIE_SECURE = True
-#SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:4200',
+    "https://calendar.curtishohman.info",
 ]
 
-#CSRF_COOKIE_SECURE = True
-#CSRF_COOKIE_DOMAIN = []
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_DOMAIN = [".curtishohman.info"]
 
-CSRF_HEADER_NAME = 'HTTP_X_CSRF_TOKEN'
-CSRF_COOKIE_NAME = 'csrf-token' 
-CSRF_COOKIE_PATH = '/'
+CSRF_HEADER_NAME = "HTTP_X_CSRF_TOKEN"
+CSRF_COOKIE_NAME = "csrf-token"
+CSRF_COOKIE_PATH = "/"
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
+    "https://calendar.curtishohman.info",
 ]
-
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -118,9 +121,9 @@ WSGI_APPLICATION = 'web.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'docker',
-        'USER': 'docker',
-        'PASSWORD': 'docker', # Change to secure password
+        'NAME':  os.getenv('MYSQL_DATABASE'),
+        'USER': os.getenv('MYSQL_USER'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'), 
         'HOST': 'db',
         'PORT': '3306',
     }
@@ -151,11 +154,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-USE_TZ = True
 #TIME_ZONE = 'UTC'
 TIME_ZONE = "America/Los_Angeles"
-
-DATETIME_FORMAT = ("%Y-%m-%d %H:%M",)
 
 USE_I18N = True
 
@@ -165,6 +165,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATIC_ROOT = '/static'
 STATIC_URL = 'static/'
 
 # Default primary key field type
@@ -186,7 +187,7 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Service Calendar API',
     'DESCRIPTION': 'Mockup Service Calendar API',
-    'VERSION': '0.6.0',
+    'VERSION': '0.7.0',
     'SERVE_INCLUDE_SCHEMA': False,    
 }
 
