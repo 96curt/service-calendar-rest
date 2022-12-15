@@ -15,14 +15,12 @@ Live API is at https://api.curtishohman.info
 
 
 ## Development Setup with Docker
-1. $ docker-compose up -d db      (wait for db to start)
-2. $ docker-compose up -d web 
+1. $ docker-compose up
 3. $ docker-compose exec web python manage.py migrate
 4. $ docker-compose exec web python manage.py createsuperuser
 5. Open browser to localhost:8888
 
-## Production Setup with Docker
-
+## Production Setup with Docker *not working
 1. modify envroment varibles in prod/.env
 2. $ docker-compose up -d db     (wait for db to start)
 3. $ docker-compose up -d gunicorn
