@@ -1,6 +1,6 @@
 from rest_framework import generics
-from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
-from api.models import Customer, Region
+from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician, Manager
+from api.models import Customer, Region, City, ZipCode
 from api import serializers
 from api import filters
 from rest_framework import permissions, views, status
@@ -110,14 +110,15 @@ class ScheduleDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.ScheduleSerializer
 
 
-class ScheduleExtra(generics.RetrieveAPIView):
-    queryset = Schedule.Schedule.objects.all()
-    serializer_class = serializers.ScheduleSerializerExtended
+# class ScheduleExtra(generics.RetrieveAPIView):
+#     queryset = Schedule.Schedule.objects.all()
+#     serializer_class = serializers.ScheduleSerializerExtended
 
 
 class ServiceCenterList(generics.ListAPIView):
     queryset = ServiceCenter.ServiceCenter.objects.all()
     serializer_class = serializers.ServiceCenterSerializer
+    filterset_class = filters.CenterFilter
 
 class ServiceCenterDetail(generics.RetrieveAPIView):
     queryset = ServiceCenter.ServiceCenter.objects.all()
@@ -134,6 +135,23 @@ class TechnicianDetail(generics.RetrieveAPIView):
     queryset = Technician.Technician.objects.all()
     serializer_class = serializers.TechnicianSerializer
 
+
 class RegionList(generics.ListAPIView):
     queryset = Region.Region.objects.all()
     serializer_class = serializers.RegionSerializer
+
+
+class ManagerList(generics.ListAPIView):
+    queryset = Manager.Manager.objects.all()
+    serializer_class = serializers.ManagerSerializer
+    filterset_class = filters.ManagerFilter
+
+class CityList(generics.ListAPIView):
+    queryset = City.City.objects.all()
+    serializer_class = serializers.CitySerializer
+    filterset_class = filters.CityFilter
+
+class ZipCodeList(generics.ListAPIView):
+    queryset = ZipCode.ZipCode.objects.all()
+    serializer_class = serializers.ZipCodeSerializer
+    filterset_class = filters.ZipCodeFilter

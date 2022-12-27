@@ -4,8 +4,8 @@ from django.conf import settings
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from api.models.WorkWeek import WorkWeek
-from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician
-from api.models import Customer, Profile, Region
+from api.models.service import Comment, JobSite, Order, Schedule, ServiceCenter, Technician, Manager
+from api.models import Customer, Profile, Region, City, ZipCode
 from django.contrib.auth.models import User
 
 
@@ -92,7 +92,16 @@ class OrderSequenceSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Order.OrderSequence
-        fields = '__all__'
+        fields = [
+            'id',
+            'number',
+            'region',
+            'jobSite',
+            'name',
+            'serviceCenter',
+            'billingCust',
+            'manager',
+        ]
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -168,7 +177,7 @@ class TechnicianSerializer(serializers.ModelSerializer):
         model = Technician.Technician
         fields = [
             'id',
-            'primaryCenter',
+            'centers',
             'qualifier',
             'type',
             'firstName',
@@ -184,28 +193,42 @@ class RegionSerializer(serializers.ModelSerializer):
         model = Region.Region
         fields = '__all__'
 
-
-class ScheduleSerializerExtended(serializers.ModelSerializer):
-    addendum = OrderAddendumSerializer(many=False)
-    serviceCenter = ServiceCenterSerializer(many=False)
-    scheduledBy = UserSerializer(many=False)
-    confirmedBy = UserSerializer(many=False)
-    technicians = TechnicianSerializer(many=True)
-
+class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Schedule.Schedule
-        fields = [
-            'id',
-            'description',
-            'startDateTime',
-            'endDateTime',
-            'addendum',
-            'serviceCenter',
-            'scheduledBy',
-            'confirmed',
-            'confirmedBy',
-            'technicians',
-            'travelHours',
-            'allDay',
-            'recurrenceRule',
-        ]
+        model = Manager.Manager
+        fields = '__all__'
+
+# class ScheduleSerializerExtended(serializers.ModelSerializer):
+#     addendum = OrderAddendumSerializer(many=False)
+#     serviceCenter = ServiceCenterSerializer(many=False)
+#     scheduledBy = UserSerializer(many=False)
+#     confirmedBy = UserSerializer(many=False)
+#     technicians = TechnicianSerializer(many=True)
+
+#     class Meta:
+#         model = Schedule.Schedule
+#         fields = [
+#             'id',
+#             'description',
+#             'startDateTime',
+#             'endDateTime',
+#             'addendum',
+#             'serviceCenter',
+#             'scheduledBy',
+#             'confirmed',
+#             'confirmedBy',
+#             'technicians',
+#             'travelHours',
+#             'allDay',
+#             'recurrenceRule',
+#         ]
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City.City
+        fields = '__all__'
+
+class ZipCodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ZipCode.ZipCode
+        fields = '__all__'

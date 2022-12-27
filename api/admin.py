@@ -9,7 +9,9 @@ from api.models.service.Schedule import Schedule
 from api.models.service.ServiceCenter import ServiceCenter
 from api.models.service.Technician import Technician
 from api.models.Region import Region
-
+from api.models.service.Manager import Manager
+from api.models.City import City
+from api.models.ZipCode import ZipCode
 # Register your models here.
 
 admin.site.register(Comment)
@@ -24,4 +26,7 @@ admin.site.register(Technician)
 admin.site.register(Customer)
 admin.site.register(Profile)
 admin.site.register(Region)
+admin.site.register(Manager)
+admin.site.register(City)
+admin.site.register(ZipCode)
 
