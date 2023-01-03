@@ -115,43 +115,47 @@ class ScheduleDetail(generics.RetrieveUpdateDestroyAPIView):
 #     serializer_class = serializers.ScheduleSerializerExtended
 
 
+class RegionList(generics.ListAPIView):
+    queryset = Region.Region.objects.all().distinct()
+    serializer_class = serializers.RegionSerializer
+    filterset_class = filters.RegionFilter
+
+
+class ManagerList(generics.ListAPIView):
+    queryset = Manager.Manager.objects.all().distinct()
+    serializer_class = serializers.ManagerSerializer
+    filterset_class = filters.ManagerFilter
+
+
 class ServiceCenterList(generics.ListAPIView):
-    queryset = ServiceCenter.ServiceCenter.objects.all()
+    queryset = ServiceCenter.ServiceCenter.objects.all().distinct()
     serializer_class = serializers.ServiceCenterSerializer
     filterset_class = filters.CenterFilter
+
 
 class ServiceCenterDetail(generics.RetrieveAPIView):
     queryset = ServiceCenter.ServiceCenter.objects.all()
     serializer_class = serializers.ServiceCenterSerializer
 
 
-class TechnicianList(generics.ListAPIView):
-    queryset = Technician.Technician.objects.all()
-    serializer_class = serializers.TechnicianSerializer
-    filterset_class = filters.TechnicianFilter
-
-
-class TechnicianDetail(generics.RetrieveAPIView):
-    queryset = Technician.Technician.objects.all()
-    serializer_class = serializers.TechnicianSerializer
-
-
-class RegionList(generics.ListAPIView):
-    queryset = Region.Region.objects.all()
-    serializer_class = serializers.RegionSerializer
-
-
-class ManagerList(generics.ListAPIView):
-    queryset = Manager.Manager.objects.all()
-    serializer_class = serializers.ManagerSerializer
-    filterset_class = filters.ManagerFilter
-
 class CityList(generics.ListAPIView):
-    queryset = City.City.objects.all()
+    queryset = City.City.objects.all().distinct()
     serializer_class = serializers.CitySerializer
     filterset_class = filters.CityFilter
 
+
 class ZipCodeList(generics.ListAPIView):
-    queryset = ZipCode.ZipCode.objects.all()
+    queryset = ZipCode.ZipCode.objects.all().distinct()
     serializer_class = serializers.ZipCodeSerializer
     filterset_class = filters.ZipCodeFilter
+
+
+class TechnicianList(generics.ListAPIView):
+    queryset = Technician.Technician.objects.all().distinct()
+    serializer_class = serializers.TechnicianSerializer
+    filterset_class = filters.TechnicianFilter
+
+    
+class TechnicianDetail(generics.RetrieveAPIView):
+    queryset = Technician.Technician.objects.all()
+    serializer_class = serializers.TechnicianSerializer

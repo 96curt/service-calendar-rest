@@ -7,7 +7,7 @@ from api.models.WorkWeek import WorkWeek
 
 class Technician(models.Model):
     # Assigned Service Centers
-    centers = models.ManyToManyField(ServiceCenter)
+    centers = models.ManyToManyField(ServiceCenter, related_name='technicians')
     # Tech Qualifier
     qualifier = models.CharField(max_length=1, default="0")
     # Tech Type E/V
@@ -24,6 +24,8 @@ class Technician(models.Model):
     #lunchTime = models.TimeField(
     #    default = time(hour=12)
     #)
+
+    # many to many relations: schedules
 
     @property
     def fullName(self):

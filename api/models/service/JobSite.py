@@ -18,5 +18,5 @@ class JobSite(AbstractLocation):
             City.objects.create(name=self.city,region=self.region)
         if not ZipCode.objects.filter(code=self.zipCode):
             city = City.objects.filter(name=self.city)[0]
-            ZipCode.objects.create(code=self.zipCode,city=city,region=self.region)
+            ZipCode.objects.create(code=self.zipCode,city=city)
         super(JobSite,self).save(args,kwargs)

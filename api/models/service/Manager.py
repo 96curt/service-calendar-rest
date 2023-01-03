@@ -4,6 +4,6 @@ from api.models.Region import Region
 class Manager(models.Model):
     firstName = models.CharField(max_length=64)
     lastName = models.CharField(max_length=64)
-    region = models.ManyToManyField(Region)
+    region = models.ManyToManyField(Region, related_name="managers")
     def __str__(self):
         return self.firstName + ' ' + self.lastName

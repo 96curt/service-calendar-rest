@@ -187,6 +187,7 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Service Calendar API',
     'DESCRIPTION': 'Mockup Service Calendar API',
     'VERSION': '0.10.0',
-    'SERVE_INCLUDE_SCHEMA': False,    
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': '/api/',
 }
 

@@ -7,18 +7,20 @@ urlpatterns = [
     # Auth
     path('auth/login', views.LoginView.as_view()),
     path('auth/logout', views.LogoutView.as_view()),
+    
+    # User Models
+    path('user/profile', views.ProfileDetail.as_view(), name='profile'),
 
     # Generic Models
-    path('profile', views.ProfileDetail.as_view(), name='profile'),
-    path('service/comments', views.CommentList.as_view()),
-    path('service/comment/<int:pk>', views.CommentDetail.as_view()),
-    path('customers', views.CustomerList.as_view()),
-    path('customer/<int:pk>', views.CustomerDetail.as_view()),
-    path('regions', views.RegionList.as_view()),
-    path('cities', views.CityList.as_view()),
-    path('zipcodes', views.ZipCodeList.as_view()),
+    path('generic/customers', views.CustomerList.as_view()),
+    path('generic/customer/<int:pk>', views.CustomerDetail.as_view()),
+    path('generic/regions', views.RegionList.as_view()),
+    path('generic/cities', views.CityList.as_view()),
+    path('generic/zipcodes', views.ZipCodeList.as_view()),
 
     # Service Models
+    path('service/comments', views.CommentList.as_view()),
+    path('service/comment/<int:pk>', views.CommentDetail.as_view()),
     path('service/jobsites', views.JobSiteList.as_view()),
     path('service/jobsite/<int:pk>', views.JobSiteDetail.as_view()),
     path('service/orders/sequences', views.OrderSequenceList.as_view(), name='sequence-list'),

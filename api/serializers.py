@@ -154,7 +154,12 @@ class OrderAddendumSerializer(serializers.ModelSerializer):
 class ServiceCenterSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceCenter.ServiceCenter
-        fields = '__all__'
+        fields = [
+            'id',
+            'name',
+            'region',
+            'technicians',
+        ]
 
 
 class WorkWeekSerializer(serializers.ModelSerializer):
@@ -185,14 +190,18 @@ class TechnicianSerializer(serializers.ModelSerializer):
             'fullName',
             'workWeek',
             'active',
+            'schedules',
         ]
 
 
 class RegionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Region.Region
-        fields = '__all__'
-
+        fields = [
+            'id',
+            'name',
+            'managers',
+        ]
 class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manager.Manager

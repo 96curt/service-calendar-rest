@@ -4,7 +4,7 @@ from api.models.Region import Region
 
 class ServiceCenter(AbstractLocation):
     name = models.CharField(max_length=128)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="centers")
 
 
     def __str__(self):

@@ -44,33 +44,14 @@ class OrderSequenceFilter(filters.FilterSet):
         ]
 
 
-class TechnicianFilter(filters.FilterSet):
-    class Meta:
-        model = Technician.Technician
-        fields = {
-            'centers__id': ["in"],
-            'centers__region__id': ["in", "exact"],
-            'qualifier': ["exact"],
-            'type': ["exact"],
-            'workWeek': ["exact"],
-            'firstName':  ["contains"],
-            'lastName':  ["contains"],
-        }
-
-class CenterFilter(filters.FilterSet):
-    class Meta:
-        model = ServiceCenter.ServiceCenter
-        fields = {
-            'region__id': ["in"],
-            'name': ["contains"]
-        }
-
 class RegionFilter(filters.FilterSet):
     class Meta:
         model = Region.Region
         fields = {
-            'name': ["contains"]
+            'name': ["contains"],
+            'managers__id': ["in"]
         }
+
 
 class ManagerFilter(filters.FilterSet):
     class Meta:
@@ -81,19 +62,53 @@ class ManagerFilter(filters.FilterSet):
             'region__id': ["in"]
         }
 
+
+class CenterFilter(filters.FilterSet):
+    class Meta:
+        model = ServiceCenter.ServiceCenter
+        fields = {
+            'name': ["contains"],
+            'region__id': ["in"],
+            'region__managers__id': ["in"],
+        }
+
+
 class CityFilter(filters.FilterSet):
     class Meta:
         model = City.City
         fields = {
             'name': ["exact"],
-            'region__id': ["in"]
+            'region__id': ["in"],
+            'region__managers__id': ["in"],
+            'region__centers__id': ["in"],
         }
+
+
 class ZipCodeFilter(filters.FilterSet):
     class Meta:
         model = ZipCode.ZipCode
         fields = {
             'code': ["exact"],
-            'city__name': ["contains"],
-            'city__id': ["in"],
-            'region__id': ["in"]
+            'cities__name': ["contains"],
+            'region__id': ["in"],
+            'region__managers__id': ["in"],
+            'region__centers__id': ["in"],
+            'cities__id': ["in"],
+        }
+
+
+class TechnicianFilter(filters.FilterSet):
+    class Meta:
+        model = Technician.Technician
+        fields = {
+            'qualifier': ["exact"],
+            'type': ["exact"],
+            'workWeek': ["exact"],
+            'firstName':  ["contains"],
+            'lastName':  ["contains"],
+            'centers__region__id': ["in"],
+            'centers__region__managers__id': ["in"],
+            'centers__id': ["in"],
+            'centers__region__cities__id': ["in"],
+            'centers__region__zipCodes__code': ["in"],
         }
