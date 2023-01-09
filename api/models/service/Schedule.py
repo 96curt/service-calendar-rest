@@ -68,7 +68,7 @@ class Schedule(models.Model):
             return ( 
                 '(' + str(adden.laborHours) + ') '
                 + cust.__str__() + ' '
-                + adden.name() + ' '
+                + adden.name + ' '
                 +  job.__str__()
             )
         return self.description

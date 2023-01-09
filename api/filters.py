@@ -10,27 +10,36 @@ class ScheduleFilter(filters.FilterSet):
     class Meta:
         model = Schedule.Schedule
         fields = {
-            'startDateTime': ["range"],
-            'endDateTime': ["range"],
-            'serviceCenter__id': ["exact"],
-            'technicians__id':["in"],
+            'startDateTime': [],
+            'endDateTime': [],
             'addendum__sequence__jobSite__region__id': ["exact"],
             'addendum__sequence__number': ["exact"],
             'addendum__number': ["exact"],
             'addendum__sequence__jobSite__zipCode': ["exact"],
             'addendum__sequence__jobSite__city': ["exact", "contains"],
+            'serviceCenter__region__id': ["in"],
+            'serviceCenter__region__managers__id': ["in"],
+            'serviceCenter__id': ["in"],
+            'serviceCenter__region__cities__id': ["in"],
+            'serviceCenter__region__zipCodes__code': ["in"],
+            'technicians__id': ["in"],
         }
 
 class OrderAddendumFilter(filters.FilterSet):
     class Meta:
         model = Order.OrderAddendum
-        fields = [
-            'sequence__jobSite__region__id',
-            'sequence__number',
-            'number',
-            'status',
-            'statusDate',
-        ]
+        fields = {
+            'sequence__jobSite__region__id': ["in"],
+            'sequence__manager__id': ["in"],
+            'sequence__jobSite__region__centers__id': ["in"],
+            'sequence__jobSite__region__cities__id': ["in"],
+            'sequence__jobSite__region__zipCodes__code': ["in"],
+            'sequence__jobSite__region__centers__technicians__id': ["in"],
+            'sequence__number': ["exact"],
+            'number': ["exact"],
+            'status': ["exact"],
+            'statusDate': ["exact"],
+        }
 
 class OrderSequenceFilter(filters.FilterSet):
     class Meta:
@@ -111,4 +120,5 @@ class TechnicianFilter(filters.FilterSet):
             'centers__id': ["in"],
             'centers__region__cities__id': ["in"],
             'centers__region__zipCodes__code': ["in"],
+            'id': ["in"],
         }

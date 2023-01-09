@@ -9,8 +9,6 @@ from api.models.Region import Region
 class OrderSequence(models.Model):
     # Order Sequence Number
     number = models.PositiveSmallIntegerField(editable=False)
-    # Region 
-    ### region = models.ForeignKey(Region, on_delete=models.CASCADE)
     # Jobsite Location
     jobSite = models.OneToOneField(JobSite, on_delete=models.CASCADE)
     # Assigned Service Center
@@ -34,7 +32,7 @@ class OrderSequence(models.Model):
         return str(self.region) + '-' + str(self.number)
 
     def __str__(self):
-        return self.name()
+        return self.name
 
     def save(self, *args, **kwargs):
         presentKeys = OrderSequence.objects.filter(models.Q(jobsite__region__id=self.jobSite.region.id)).order_by('-number').values_list('number', flat=True)
@@ -78,7 +76,7 @@ class OrderAddendum(models.Model):
         return self.sequence.__str__() + '.' + str(self.number)
 
     def __str__(self):
-        return self.name()
+        return self.name
 
     class Meta:
         constraints = [
