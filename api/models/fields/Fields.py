@@ -1,4 +1,4 @@
-from django.db.models import CharField, Model, ManyToManyField
+from django.db.models import CharField, PositiveSmallIntegerField
 from api.models.fields import choices
 
 from django.utils.translation import gettext_lazy as _
@@ -124,3 +124,19 @@ class StatusCodeField(CharField):
         return name, path, args, kwargs
 
 
+class AppointmentTypeField(CharField):
+    """
+    A model field that stores the Appointment Type in the database.
+    """
+
+    description = _("Appointment Type (4 Characters)")
+
+    def __init__(self, *args, **kwargs):
+        kwargs['choices'] = choices.APPOINTMENT_TYPES
+        kwargs['max_length'] = 4
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        del kwargs['choices']
+        return name, path, args, kwargs

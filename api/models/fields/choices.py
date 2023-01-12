@@ -130,3 +130,9 @@ STATUS_CODES = (
     ('4', _('Shipped')),
     ('5', _('Recevied')),
 )
+
+APPOINTMENT_TYPES = (
+    ('ORDR', _('Service Order')),
+    ('TRVL', _('Travel Time')),
+    ('MISC', _('miscellaneous')),
+)

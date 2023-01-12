@@ -35,9 +35,9 @@ class OrderSequence(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        presentKeys = OrderSequence.objects.filter(models.Q(jobsite__region__id=self.jobSite.region.id)).order_by('-number').values_list('number', flat=True)
+        presentKeys = OrderSequence.objects.filter(models.Q(jobSite__region__id=self.jobSite.region.id)).order_by('-number').values_list('number', flat=True)
         if presentKeys:
-            self.number = presentKeys[0] + 1    
+            self.number = presentKeys[0] + 1
         else:
             self.number = 1
         super(OrderSequence,self).save(args,kwargs)
@@ -52,7 +52,6 @@ class OrderSequence(models.Model):
 class OrderAddendum(models.Model):
     # Order Addendum Number
     number = models.PositiveSmallIntegerField(editable=False)
-
     sequence = models.ForeignKey(
         OrderSequence,
         on_delete=models.CASCADE,

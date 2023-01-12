@@ -11,6 +11,9 @@ class Customer(AbstractLocation):
     # Company Name
     companyName = models.CharField(max_length=256,blank=True,null=True)
 
-    def __str__(self):
+    @property
+    def name(self):
         return str(self.firstName) + ' ' + str(self.lastName)    
 
+    def __str__(self):
+        return self.name

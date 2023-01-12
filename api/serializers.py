@@ -124,8 +124,13 @@ class ScheduleSerializer(serializers.ModelSerializer):
             'scheduledBy',
             'confirmedBy',
             'technicians',
-
+            'type',
+            'addendumLaborHours',
+            'addendumName',
+            'billingCustName',
+            'JobsiteAddress'
         ]
+        
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
