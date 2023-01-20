@@ -117,6 +117,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
             'confirmed',
             'description',
             'travelHours',
+            'returnHours',
             'allDay',
             'recurrenceRule',
             'addendum',
@@ -128,7 +129,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
             'addendumLaborHours',
             'addendumName',
             'billingCustName',
-            'JobsiteAddress'
+            'JobsiteAddress',
         ]
         
 

@@ -46,9 +46,10 @@ class Schedule(models.Model):
     description = models.CharField(max_length=1024, null=True, blank=True)
     # multiple technicians can be scheduled to an appointment
     technicians = models.ManyToManyField(Technician, related_name='schedules')
-    startDateTime = models.DateTimeField(default=datetime(2022,11,22,8,0,0,0,timezone.get_current_timezone()))
-    endDateTime = models.DateTimeField(default=datetime(2022,11,22,8,0,0,0,timezone.get_current_timezone()))
+    startDateTime = models.DateTimeField()
+    endDateTime = models.DateTimeField()
     travelHours = models.DecimalField(max_digits=6, decimal_places=2)
+    returnHours = models.DecimalField(max_digits=6, decimal_places=2)
     allDay = models.BooleanField(default=False)
     recurrenceRule = models.CharField(blank=True,null=True,max_length=256)
     type = Fields.AppointmentTypeField(default='ORDR')
