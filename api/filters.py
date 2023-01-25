@@ -79,6 +79,7 @@ class CenterFilter(filters.FilterSet):
             'name': ["contains"],
             'region__id': ["in"],
             'region__managers__id': ["in"],
+            'technicians__id': ["in"],
         }
 
 
@@ -121,4 +122,5 @@ class TechnicianFilter(filters.FilterSet):
             'centers__region__cities__id': ["in"],
             'centers__region__zipCodes__code': ["in"],
             'id': ["in"],
+            
         }

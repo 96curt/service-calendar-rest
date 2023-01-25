@@ -151,7 +151,7 @@ class ZipCodeList(generics.ListAPIView):
 
 
 class TechnicianList(generics.ListAPIView):
-    queryset = Technician.Technician.objects.all().distinct()
+    queryset = Technician.Technician.objects.all().distinct().order_by('firstName')
     serializer_class = serializers.TechnicianSerializer
     filterset_class = filters.TechnicianFilter
 
