@@ -130,6 +130,8 @@ class ScheduleSerializer(serializers.ModelSerializer):
             'addendumName',
             'billingCustName',
             'JobsiteAddress',
+            'latitude',
+            'longitude',
         ]
         
 

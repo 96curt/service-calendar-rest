@@ -19,7 +19,7 @@ class AbstractLocation(models.Model):
     # Latitude
     latitude = models.FloatField(blank=True, null=True)
     # Longitude
-    longitute = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
 
     class meta:
         abstract = True

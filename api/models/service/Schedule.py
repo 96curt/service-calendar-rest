@@ -81,6 +81,15 @@ class Schedule(models.Model):
             )
         return self.description
 
+    @property
+    def latitude(self):
+        if(self.addendum):
+            return self.addendum.sequence.jobSite.latitude
+    @property
+    def longitude(self):
+        if(self.addendum):
+            return self.addendum.sequence.jobSite.longitude
+
     def __str__(self) -> str:
         return self.startDateTime.strftime('%m/%d/%Y-%H:%M') + ' ' + self.label
 
