@@ -210,35 +210,13 @@ class RegionSerializer(serializers.ModelSerializer):
             'name',
             'managers',
         ]
+
+
 class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manager.Manager
         fields = '__all__'
 
-# class ScheduleSerializerExtended(serializers.ModelSerializer):
-#     addendum = OrderAddendumSerializer(many=False)
-#     serviceCenter = ServiceCenterSerializer(many=False)
-#     scheduledBy = UserSerializer(many=False)
-#     confirmedBy = UserSerializer(many=False)
-#     technicians = TechnicianSerializer(many=True)
-
-#     class Meta:
-#         model = Schedule.Schedule
-#         fields = [
-#             'id',
-#             'description',
-#             'startDateTime',
-#             'endDateTime',
-#             'addendum',
-#             'serviceCenter',
-#             'scheduledBy',
-#             'confirmed',
-#             'confirmedBy',
-#             'technicians',
-#             'travelHours',
-#             'allDay',
-#             'recurrenceRule',
-#         ]
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:

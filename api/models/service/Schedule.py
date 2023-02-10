@@ -7,6 +7,7 @@ from api.models.service.Technician import Technician
 from api.models.WorkWeek import WorkWeek
 from api.models.fields import Fields
 from django.conf import settings
+from api.models.fields import choices
 
 # Service Order Schedule Model
 
@@ -43,7 +44,7 @@ class Schedule(models.Model):
         on_delete=models.SET_NULL,
         related_name='confirmedBy',
     )
-    description = models.CharField(max_length=1024, null=True, blank=True)
+    description = models.CharField(max_length=1024,blank=True)
     # multiple technicians can be scheduled to an appointment
     technicians = models.ManyToManyField(Technician, related_name='schedules')
     startDateTime = models.DateTimeField()
@@ -52,7 +53,7 @@ class Schedule(models.Model):
     returnHours = models.DecimalField(max_digits=6, decimal_places=2)
     allDay = models.BooleanField(default=False)
     recurrenceRule = models.CharField(blank=True,null=True,max_length=256)
-    type = Fields.AppointmentTypeField(default='ORDR')
+    type = Fields.AppointmentTypeField()
 
     @property
     def addendumLaborHours(self):
@@ -72,14 +73,17 @@ class Schedule(models.Model):
 
     @property
     def label(self):
-        if(self.addendum):
-            return ( 
+        label = ""       
+        if self.type=="ORDR":
+            label = (
                 '(' + str(self.addendumLaborHours) + ') '
                 + self.billingCustName + ', '
                 + self.addendumName + ', '
-                + self.JobsiteAddress
+                + self.JobsiteAddress 
             )
-        return self.description
+        elif self.type=="MISC":
+            label += ' ' + self.description
+        return label
 
     @property
     def latitude(self):
@@ -91,7 +95,12 @@ class Schedule(models.Model):
             return self.addendum.sequence.jobSite.longitude
 
     def __str__(self) -> str:
-        return self.startDateTime.strftime('%m/%d/%Y-%H:%M') + ' ' + self.label
+        display = self.startDateTime.strftime('%m/%d/%Y-%H:%M')
+        if self.type=="ORDR":
+            display += ' ' + self.label
+        elif self.type=="MISC":
+            display += ' ' + self.description
+        return display
 
     def save_model(self, request, obj, form, change):
         if not obj.pk:
